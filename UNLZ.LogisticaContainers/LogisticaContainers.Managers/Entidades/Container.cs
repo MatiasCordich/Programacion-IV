@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogisticaContainers.Managers.Entidades
 {
+    // Esto nos indica que la clase Container va a tener acceso a los metodos y propiedades de la clase Audit
     public class Container : Audit
     {
         public int IdContainer { get; set; }

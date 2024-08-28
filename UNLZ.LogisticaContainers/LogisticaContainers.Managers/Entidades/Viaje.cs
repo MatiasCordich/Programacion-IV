@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogisticaContainers.Managers.Entidades
 {
+    // Esto nos indica que la clase Viaje va a tener acceso a los metodos y propiedades de la clase Audit
     public class Viaje : Audit
     {
         public int IdViaje { get; set; }
@@ -14,6 +15,6 @@ namespace LogisticaContainers.Managers.Entidades
         public int IdHangarOrigen { get; set; }
         public int IdHangarDestino { get; set; }
         public DateTime FechaInicio { get; set; }
-        public DateTime? FechaFin { get; set; }
+        public DateTime? FechaFin { get; set; } // Agregando un signo de interrogacion indico que ese valor puede ser NULO
     }
 }
