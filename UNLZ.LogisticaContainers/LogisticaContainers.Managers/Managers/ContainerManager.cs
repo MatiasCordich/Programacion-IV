@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace LogisticaContainers.Managers.Managers
 {
-    // ------- El manager de Container va a contener toda la logica de negocio ------- //
+    // ------- El manager de Container va a contener toda la logica de negocio de Container ------- //
     public class ContainerManager
     {
         public ContainerManager() { }
 
+        // ------- Este método se encarga de crear el Container ------- //
         public Container CrearContainer()
         {
             Container container = new Container
