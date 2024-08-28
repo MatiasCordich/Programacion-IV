@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿ <! -- 
+ Esto es una estructura basica de HTML donde van a estar todas nuestras vistas (paginas).
+ Esta estructura es fundamental porque en ella se encuentran todas nuestras vistas con su ruta. 
+-->
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -32,6 +37,8 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+
+            <! -- Gracias a esto se renderizan todas nuestras vistas -->
             @RenderBody()
         </main>
     </div>
