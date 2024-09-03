@@ -25,7 +25,7 @@ namespace LogisticaContainers.Web.Controllers
             // Manager: Creamos el manager de Container que tiene la logica de negocio
             ContainerManager manager = new ContainerManager();
 
-            // Container: Creamos el container mediane el método del manager CrearContainer()
+            // Container: Creamos el container mediante el método del manager CrearContainer()
             // Nos devuelve el objeto Container creado y lo guardamos en una variable del mismo tipo
             Container container = manager.CrearContainer();
 

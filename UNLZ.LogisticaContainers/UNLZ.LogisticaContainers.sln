@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticaContainers.Managers", "LogisticaContainers.Managers\LogisticaContainers.Managers.csproj", "{087245FC-F994-4325-BDB8-02B1E014B8FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogisticaContainers.Managers", "LogisticaContainers.Managers\LogisticaContainers.Managers.csproj", "{087245FC-F994-4325-BDB8-02B1E014B8FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticaContainers.Web", "..\LogisticaContainers.Web\LogisticaContainers.Web.csproj", "{A9D7C367-D36E-44C8-950A-9F6231773AB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogisticaContainers.Web", "..\LogisticaContainers.Web\LogisticaContainers.Web.csproj", "{A9D7C367-D36E-44C8-950A-9F6231773AB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Containers.WEB", "..\Containers.WEB\Containers.WEB.csproj", "{1A31F46E-B17D-4483-A88B-CE5F2DD802D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A9D7C367-D36E-44C8-950A-9F6231773AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9D7C367-D36E-44C8-950A-9F6231773AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9D7C367-D36E-44C8-950A-9F6231773AB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A31F46E-B17D-4483-A88B-CE5F2DD802D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A31F46E-B17D-4483-A88B-CE5F2DD802D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A31F46E-B17D-4483-A88B-CE5F2DD802D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A31F46E-B17D-4483-A88B-CE5F2DD802D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

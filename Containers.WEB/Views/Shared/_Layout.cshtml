@@ -1,23 +1,18 @@
-﻿ <! -- 
- Esto es una estructura basica de HTML donde van a estar todas nuestras vistas (paginas).
- Esta estructura es fundamental porque en ella se encuentran todas nuestras vistas con su ruta. 
--->
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - LogisticaContainers.Web</title>
+    <title>@ViewData["Title"] - Containers.WEB</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/LogisticaContainers.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Containers.WEB.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LogisticaContainers.Web</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Containers.WEB</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -37,14 +32,13 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <! -- Gracias a esto se renderizan todas nuestras vistas -->
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - LogisticaContainers.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Containers.WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -11,7 +11,6 @@ namespace LogisticaContainers.Managers.Entidades
     public class Hangar : Audit
     {
         public int IdHangar { get; set; }
-
         public string Nombre { get; set; }
     }
 }
