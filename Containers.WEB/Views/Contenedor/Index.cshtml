@@ -5,32 +5,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- Este es nuestro HTML de nuestro INDEX de la vista Contenedor -->
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<!--
+ Aca vamos a desplegar toda la info de nuestra lista
+ de contenedores
+-->
+
 <table class="table">
     <thead>
         <tr>
             <th>
+                <!--
+                 Html.DisplayNameFor esto nos sirve para obtener el nombre de una propiedad del modelo ContenedorVM y mostrarlo
+                 Ahi, cuando decimos la palabra model, estamos referenciando a ContenedorVM
+                -->
                 @Html.DisplayNameFor(model => model.IdContainer)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Identificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ubicacion)
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdContainer)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        <!-- Con un foreach vamos iterando la lista de Contenedores -->
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <!--
+                     Html.DisplayFor es igual al anterior pero con la diferencia de que se obtiene los valores de las propiedades
+                     del modelo. Para item se van a mostrar los valores de sus propiedades. 
+                    -->
+                    @Html.DisplayFor(modelItem => item.IdContainer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdContainer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdContainer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdContainer)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
