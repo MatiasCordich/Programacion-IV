@@ -1,8 +1,19 @@
+using LogisticaContainers.Managers.Managers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+/*
+    Registra el servicio IContainerManager y su implementación ContainerManager
+    en el contenedor de dependencias con un ciclo de vida "Scoped".
+    "Scoped" significa que una nueva instancia de ContainerManager será creada
+    para cada solicitud HTTP individual y compartida dentro de esa misma solicitud.
+    Esto asegura que cualquier componente que necesite IContainerManager dentro de una
+    misma solicitud recibirá la misma instancia.
+*/
+builder.Services.AddScoped<IContainerManager, ContainerManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

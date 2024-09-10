@@ -3,8 +3,8 @@
     public class ContenedorVM
     {
         public int IdContainer { get; set; }
-        public string Identificacion { get; set; }
+        public string NumeroSerie { get; set; }
         public DateTime FechaAlta { get; set; }
-        public string Ubicacion { get; set; }
+        public string Direccion { get; set; }
     }
 }

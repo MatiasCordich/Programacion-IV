@@ -29,13 +29,13 @@
                 @Html.DisplayNameFor(model => model.IdContainer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Identificacion)
+                @Html.DisplayNameFor(model => model.NumeroSerie)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FechaAlta)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ubicacion)
+                @Html.DisplayNameFor(model => model.Direccion)
             </th>
         </tr>
     </thead>
@@ -52,13 +52,13 @@
                     @Html.DisplayFor(modelItem => item.IdContainer)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Identificacion)
+                    @Html.DisplayFor(modelItem => item.NumeroSerie)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaAlta)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Ubicacion)
+                    @Html.DisplayFor(modelItem => item.Direccion)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
