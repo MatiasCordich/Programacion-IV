@@ -21,14 +21,14 @@ namespace Containers.WEB.Controllers
     public class ContenedorController : Controller
     {
 
-        // Dependencia del controlador que se inyectará mediante el constructor 
+        // Variable privada controlador donde se inyectará la dependencia mediante el constructor 
         private IContainerManager _containerManager;
 
         // Lista: Creamos una lista de contenedores en base a nuestro modelo de Contenedor creado. 
         private List<ContenedorVM> _contenedores { get; set; }
 
         // Constructor: Creamos el constructor del Controller
-        // Constructor del controlador que recibe una instancia de IContainerManager a través de inyección de dependencias
+        // Constructor del controlador que recibe una instancia de IContainerManager a través de inyección de dependencias.
         public ContenedorController(IContainerManager containerManager) {
 
             // Asigna la dependencia inyectada a la variable privada
@@ -69,8 +69,6 @@ namespace Containers.WEB.Controllers
                 IdContainer = contenedor.IdContainer, // Asigna el ID del contenedor
                 NumeroSerie = contenedor.DescripcionContainer // Usa la descripción del contenedor como número de serie
             });
-
-            ContainerManager containerManager = new ContainerManager();
 
             // Retornamos en el Index la lista de contenedores
             return View(_contenedores);
