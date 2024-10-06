@@ -51,9 +51,13 @@ namespace Containers.WEB.Controllers
         // GET: ContenedorController/Details/5
         public ActionResult Details(int id)
         {
+            // Obtengo un Container por su ID mediante el metodo GetContainer del manager
             var container = _containerManager.GetContainer(id);
 
+            // Instancio un nuevo modelo de Container
             ContainerModel containerModel = new ContainerModel();
+
+            // A la propiedad model del Modelo le doy el valor del container obtenido
             containerModel.model = container;
             containerModel.ListaEstadosItem = new List<SelectListItem>();
             var estados = _estadoContainerRepository.GetEstadosContainer();
