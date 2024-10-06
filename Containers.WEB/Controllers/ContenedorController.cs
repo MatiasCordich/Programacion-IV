@@ -1,7 +1,10 @@
 ﻿using Containers.WEB.Models;
+using LogisticaContainers.Managers.Entidades;
 using LogisticaContainers.Managers.Managers;
+using LogisticaContainers.Managers.Repositorios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Containers.WEB.Controllers
 {
@@ -10,80 +13,70 @@ namespace Containers.WEB.Controllers
      Aca estaran todas los metodos del controler que nos permitiran gestionar el MODELO de Contenedor
      y la vista de Contenedor.
      */
-   
+
     /*
      Cada metodo tiene comentado dos cosas
       - Metodo HTTP: Son metodos para hacer peticiones (GET, POST)
       - Ruta: La ruta a la que funciona dicho metodo del controlador  
      */
 
-    
+
     public class ContenedorController : Controller
     {
 
         // Variable privada controlador donde se inyectará la dependencia mediante el constructor 
         private IContainerManager _containerManager;
 
-        // Lista: Creamos una lista de contenedores en base a nuestro modelo de Contenedor creado. 
-        private List<ContenedorVM> _contenedores { get; set; }
+        // Variable privada, donde utilizaremos los metodos del repositorio de EstadoContainer
+        private IEstadoContainerRepository _estadoContainerRepository;
 
         // Constructor: Creamos el constructor del Controller
         // Constructor del controlador que recibe una instancia de IContainerManager a través de inyección de dependencias.
-        public ContenedorController(IContainerManager containerManager) {
+        // Recibe tambien la instancia del repositorio del EstadoContainer
+        public ContenedorController(IContainerManager containerManager, IEstadoContainerRepository estadoContainerRepository)
+        {
 
-            // Asigna la dependencia inyectada a la variable privada
-            this._containerManager = containerManager;
-
-            // Instanciamos una lista de contenedores
-            _contenedores = new List<ContenedorVM>();
-
-            // Agregamos dos objetos de tipo ContenedorVM de nuestro modelo
-            _contenedores.Add(new ContenedorVM
-            {
-                IdContainer = 1, 
-                FechaAlta = DateTime.Now,
-                NumeroSerie = "ASDA-01",
-                Direccion = "Avenida Siempreviva 2792"
-            });
-
-            _contenedores.Add(new ContenedorVM
-            {
-                IdContainer = 2,
-                FechaAlta = DateTime.Now,
-                NumeroSerie = "ASDAASFASD-22343",
-                Direccion = "Calle Falsa 123"
-            });
+            _containerManager = containerManager;
+            _estadoContainerRepository = estadoContainerRepository;
         }
 
         // GET: ContenedorController
         public ActionResult Index()
         {
-            // Crea un nuevo contenedor utilizando el IContainerManager (inyección de dependencia)
-            var contenedor = this._containerManager.CrearContainer();
+            var containers = _containerManager.GetContainers();
 
-            // Añade el contenedor creado a la lista _contenedores
-            _contenedores.Add(new ContenedorVM
-            {
-                Direccion = contenedor.DescripcionContainer, // Asigna la descripción del contenedor a la dirección
-                FechaAlta = contenedor.FechaAlta, // Asigna la fecha de alta del contenedor
-                IdContainer = contenedor.IdContainer, // Asigna el ID del contenedor
-                NumeroSerie = contenedor.DescripcionContainer // Usa la descripción del contenedor como número de serie
-            });
-
-            // Retornamos en el Index la lista de contenedores
-            return View(_contenedores);
+            return View(containers);
         }
 
         // GET: ContenedorController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var container = _containerManager.GetContainer(id);
+
+            ContainerModel containerModel = new ContainerModel();
+            containerModel.model = container;
+            containerModel.ListaEstadosItem = new List<SelectListItem>();
+            var estados = _estadoContainerRepository.GetEstadosContainer();
+            foreach (var estado in estados)
+            {
+                containerModel.ListaEstadosItem.Add(new SelectListItem { Value = estado.IdEstadoContainer.ToString(), Text = estado.Descripcion });
+            }
+
+            return View(containerModel);
         }
 
         // GET: ContenedorController/Create
         public ActionResult Create()
         {
-            return View();
+            ContainerModel containerModel = new ContainerModel();
+            containerModel.model = null;
+            containerModel.ListaEstadosItem = new List<SelectListItem>();
+            var estados = _estadoContainerRepository.GetEstadosContainer();
+            foreach (var estado in estados)
+            {
+                containerModel.ListaEstadosItem.Add(new SelectListItem { Value = estado.IdEstadoContainer.ToString(), Text = estado.Descripcion });
+            }
+            return View(containerModel);
         }
 
         // POST: ContenedorController/Create
@@ -93,18 +86,51 @@ namespace Containers.WEB.Controllers
         {
             try
             {
+                Container container = new Container
+                {
+                    DescripcionContainer = collection["model.DescripcionContainer"],
+                    IdEstadoContainer = int.Parse(collection["model.IdEstadoContainer"])
+                };
+                int idUsuario = 1;
+
+                _containerManager.CrearContainer(container, idUsuario);
+
+                // Una vez terminada la accion que me devuelva a la vista Index
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                // Caso contrari que me mantenga en la vista de crear y mostrara un mensaje de error de ser necesario
                 return View();
             }
         }
-
         // GET: ContenedorController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            // Obtenemos el container especifico por su ID
+            var container = _containerManager.GetContainer(id);
+
+            // Obtenemos todos los estados posibles de un container
+            var estados = _estadoContainerRepository.GetEstadosContainer();
+
+            // Creamos el MODELO de Contanier
+            ContainerModel containerModel = new ContainerModel();
+
+            // El MODELO tiene de base el modelo que es el OBJETO de tipo Container, le pasamos el container obtenido
+            containerModel.model = container;
+
+            // Le pasamos al modelo la lista de seleccion de todos los estados obtenidos
+            containerModel.ListaEstadosItem = new List<SelectListItem>();
+
+            // Por cada estado quiero que me hagas un Item de seleccion cuyos valores sean Id del esatdo y la descripcion del estado. 
+            foreach (var estado in estados)
+            {
+                containerModel.ListaEstadosItem.Add(new SelectListItem { Value = estado.IdEstadoContainer.ToString(), Text = estado.Descripcion });
+            }
+
+            return View(containerModel);
+
         }
 
         // POST: ContenedorController/Edit/5
@@ -114,18 +140,52 @@ namespace Containers.WEB.Controllers
         {
             try
             {
+                Container container = new Container
+                {
+                    DescripcionContainer = collection["model.DescripcionContainer"],
+                    IdEstadoContainer = int.Parse(collection["model.IdEstadoContainer"])
+                };
+                int idUsuario = 1;
+
+                _containerManager.ModificarContainer(id, container, idUsuario);
+
+                // Una vez terminada la accion que me devuelva a la vista Index
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                // Caso contrario que me mantenga en la vista de editar y mostrara un mensaje de error de ser necesario
                 return View();
             }
+
         }
 
         // GET: ContenedorController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            // Obtengo el Container a eliminar por su ID
+            var container = _containerManager.GetContainer(id);
+
+            // Obtengo todos los estados posibles que puede tener el Container
+            var estados = _estadoContainerRepository.GetEstadosContainer();
+
+            // Creamos el nuevo MODELO de Container
+            ContainerModel containerModel = new ContainerModel();
+
+            // Al modelo, en su propiedad model (de tipo Container) le paso el container obtenido
+            containerModel.model = container;
+
+            // Le pasamos al modelo la lista de seleccion de todos los estados obtenidos
+            containerModel.ListaEstadosItem = new List<SelectListItem>();
+
+            // Por cada estado quiero que me hagas un Item de seleccion cuyos valores sean Id del esatdo y la descripcion del estado. 
+            foreach (var estado in estados)
+            {
+                containerModel.ListaEstadosItem.Add(new SelectListItem { Value = estado.IdEstadoContainer.ToString(), Text = estado.Descripcion });
+            }
+
+            return View(containerModel);
+
         }
 
         // POST: ContenedorController/Delete/5
@@ -135,12 +195,21 @@ namespace Containers.WEB.Controllers
         {
             try
             {
+                int idUsuario = 1;
+
+                // Llamo el metodo EliminarContainer dle manager y le paso el ID y el ID de usuario
+                _containerManager.EliminarContainer(id, idUsuario);
+
+                // Una vez terminada la accion que me devuelva a la vista Index
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                // Caso contrari que me mantenga en la vista de eliminar y mostrara un mensaje de error de ser necesario
                 return View();
             }
         }
     }
+
+
 }
