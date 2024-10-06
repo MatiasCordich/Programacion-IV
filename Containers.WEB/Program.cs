@@ -1,4 +1,6 @@
 using LogisticaContainers.Managers.Managers;
+using LogisticaContainers.Managers.ModelFactories;
+using LogisticaContainers.Managers.Repositorios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,14 @@ builder.Services.AddControllersWithViews();
     Esto asegura que cualquier componente que necesite IContainerManager dentro de una
     misma solicitud recibirá la misma instancia.
 */
+
+// ----- MANAGERS ----- //
 builder.Services.AddScoped<IContainerManager, ContainerManager>();
+
+// ----- REPOSITORIOS ----- //
+builder.Services.AddScoped<IContainerRepository>(_ => new ContainerRepository(builder.Configuration["Db:ConnectionString"]));
+builder.Services.AddScoped<IEstadoContainerRepository>(_ => new EstadoContainerRepository(builder.Configuration["Db:ConnectionString"]));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
