@@ -95,7 +95,7 @@ namespace Containers.WEB.Controllers
                     DescripcionContainer = collection["model.DescripcionContainer"],
                     IdEstadoContainer = int.Parse(collection["model.IdEstadoContainer"])
                 };
-                int idUsuario = 1;
+                int idUsuario = GetUserIdentityId();
 
                 _containerManager.CrearContainer(container, idUsuario);
 
@@ -149,7 +149,8 @@ namespace Containers.WEB.Controllers
                     DescripcionContainer = collection["model.DescripcionContainer"],
                     IdEstadoContainer = int.Parse(collection["model.IdEstadoContainer"])
                 };
-                int idUsuario = 1;
+
+                int idUsuario = GetUserIdentityId();
 
                 _containerManager.ModificarContainer(id, container, idUsuario);
 
@@ -199,7 +200,7 @@ namespace Containers.WEB.Controllers
         {
             try
             {
-                int idUsuario = 1;
+                int idUsuario = GetUserIdentityId();
 
                 // Llamo el metodo EliminarContainer dle manager y le paso el ID y el ID de usuario
                 _containerManager.EliminarContainer(id, idUsuario);
@@ -212,6 +213,12 @@ namespace Containers.WEB.Controllers
                 // Caso contrari que me mantenga en la vista de eliminar y mostrara un mensaje de error de ser necesario
                 return View();
             }
+        }
+
+        // ----- Funcion para obtener el ID del usuario ----- //
+        private int GetUserIdentityId()
+        {
+            return int.Parse(HttpContext.User.Claims.First(x => x.Type == "usuarioContainer").Value);
         }
     }
 
